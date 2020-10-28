@@ -1,0 +1,44 @@
+trigger:
+  branches:
+    include:
+    - main
+
+variables:
+  version_major: 1
+  version_minor: 1
+
+name: $(Rev:r)
+steps:
+
+  - pwsh: |
+      Install-Module -Name Pester -Force -SkipPublisherCheck
+      Invoke-pester -Output Detailed -CI
+    displayName: Run pester tests
+    name: test
+    workingDirectory: $(build.sourcesDirectory)
+    failOnStderr: true
+
+  - task: PublishTestResults@2
+    condition: always()
+    inputs:
+      testResultsFormat: 'Nunit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+      testResultsFiles: testResults.xml
+      searchFolder: $(build.sourcesDirectory)
+      failTaskOnFailedTests: false # Optional
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'JaCoCo' # Options: cobertura, jaCoCo
+      summaryFileLocation: '**/coverage.xml'
+      pathToSources: $(build.sourcesDirectory)
+
+  - pwsh: |
+      Write-Output $env:BUILD_BUILDNUMBER
+      $ver = "{0}.{1}.{2}" -f $env:VERSION_MAJOR, $env:VERSION_MINOR, $env:BUILD_BUILDNUMBER
+      Write-Output ("release version: {0}" -f $ver)
+      Update-ModuleManifest -Path ./Terrafun/Terrafun.psd1 -ModuleVersion $ver
+      Publish-Module -Name ./Terrafun -NuGetApiKey $env:PSGALLERYAPIKEY
+    displayName: Publish to powershell gallery
+    name: publish
+    workingDirectory: $(build.sourcesDirectory)
+    failOnStderr: true
