@@ -27,8 +27,8 @@ tf
 As long as you have PowerShell installed on your machine, you can use this through other shells (bash, zsh, etc) through aliases.
 ```
 pwsh -c "if (Get-Module terrafun -ListAvailable){Update-Module -Force terrafun}else{Install-Module -Force terrafun}"
-echo 'alias tf="pwsh -wd $(pwd) -c tf"' > ~/.bashrc
-echo 'alias tf="pwsh -wd $(pwd) -c tf"' > ~/.zshrc
+echo 'alias tf="pwsh -wd $(pwd) -c tf"' >> ~/.bashrc
+echo 'alias tf="pwsh -wd $(pwd) -c tf"' >> ~/.zshrc
 ```
 
 # Set the terraform version in your user profile
