@@ -8,7 +8,7 @@ trigger:
 
 variables:
   version_major: 1
-  version_minor: 4
+  version_minor: 5
   version_patch: $[counter(variables['version_minor'], 0)]
 
 name: $(Rev:r)
