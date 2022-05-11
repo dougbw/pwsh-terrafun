@@ -9,16 +9,16 @@ Describe 'Get-TerraformVersions.Unit' -Tag "Unit" {
                 Return @{
                     Links = @{
                         href = @(
-                            "/terraform/1.1.0-alpha20210630/"
-                            "/terraform/1.1.0-alpha20210616/"
-                            "/terraform/1.0.4/"
-                            "/terraform/1.0.3/"
-                            "/terraform/1.0.2/"
-                            "/terraform/1.0.1/"
-                            "/terraform/1.0.0/"
-                            "/terraform/0.15.0-rc2/"
-                            "/terraform/0.15.0-rc1/"
-                            "/terraform/0.15.0-beta2/"
+                            "/terraform/1.1.0-alpha20210630"
+                            "/terraform/1.1.0-alpha20210616"
+                            "/terraform/1.0.4"
+                            "/terraform/1.0.3"
+                            "/terraform/1.0.2"
+                            "/terraform/1.0.1"
+                            "/terraform/1.0.0"
+                            "/terraform/0.15.0-rc2"
+                            "/terraform/0.15.0-rc1"
+                            "/terraform/0.15.0-beta2"
                         )
                     }
                 }
