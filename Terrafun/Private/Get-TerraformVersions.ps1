@@ -23,7 +23,7 @@ Function Get-TerraformVersions {
         Write-Debug -Message ("After={0}, AfterTimestamp={1}, page={2}, total={3}" -F $After, $AfterTimestamp, $Response.count, $Releases.count)
 
         # get the date of the oldest release - used for pagination
-        $After = $Response.timestamp_created | Sort-Object | Select-Object -First 1
+        [datetime]$After = $Response.timestamp_created | Sort-Object | Select-Object -First 1
         $AfterTimestamp = $After.ToString("o")
 
     }
