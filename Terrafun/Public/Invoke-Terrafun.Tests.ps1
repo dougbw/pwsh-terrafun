@@ -7,7 +7,7 @@ Describe 'Invoke-Terrafun.Acceptance' -Tag "Acceptance" {
 
     InModuleScope "Terrafun" {
 
-        BeforeDiscovery  {
+        BeforeAll  {
             # run acceptance tests on n-3 major.minor versions
             # include all patch releases within those versions
             # e.g if latest version is 1.5.0 then all of the current versions are in scope

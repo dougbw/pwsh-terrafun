@@ -5,24 +5,23 @@ BeforeAll {
 Describe 'Get-TerraformVersions.Unit' -Tag "Unit" {
 
         BeforeAll {
-            Mock Invoke-WebRequest {
-                Return @{
-                    Links = @{
-                        href = @(
-                            "/terraform/1.1.0-alpha20210630"
-                            "/terraform/1.1.0-alpha20210616"
-                            "/terraform/1.0.4"
-                            "/terraform/1.0.3"
-                            "/terraform/1.0.2"
-                            "/terraform/1.0.1"
-                            "/terraform/1.0.0"
-                            "/terraform/0.15.0-rc2"
-                            "/terraform/0.15.0-rc1"
-                            "/terraform/0.15.0-beta2"
-                        )
-                    }
-                }
+
+            Mock Get-Date {
+                Return "2022-01-01T00:00:00.0000000Z"
+            } -ParameterFilter {$Format -eq "o"}
+
+            Mock Invoke-RestMethod {
+                Get-Content "$PSScriptRoot/Get-TerraformVersions.Tests.MockData.Page1.json" | ConvertFrom-Json -Depth 5
+            }  -ParameterFilter {
+                $Uri -eq "https://api.releases.hashicorp.com/v1/releases/terraform?limit=20&after=2022-01-01T00:00:00.0000000Z"
             }
+
+            Mock Invoke-RestMethod {
+                Get-Content "$PSScriptRoot/Get-TerraformVersions.Tests.MockData.Page2.json" | ConvertFrom-Json -Depth 5
+            } -ParameterFilter {
+                $Uri -eq "https://api.releases.hashicorp.com/v1/releases/terraform?limit=20&after=2022-04-20T13:46:15.0000000Z"
+            }
+
         }
     
         It 'It should return the correct number of available versions' {
