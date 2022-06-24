@@ -6,10 +6,6 @@ Describe 'Get-TerraformVersions.Unit' -Tag "Unit" {
 
         BeforeAll {
 
-            Mock Get-Date {
-                Return "2022-01-01T00:00:00.0000000Z"
-            } -ParameterFilter {$Format -eq "o"}
-
             Mock Invoke-RestMethod {
                 Get-Content "$PSScriptRoot/Get-TerraformVersions.Tests.MockData.Page1.json" | ConvertFrom-Json
             }  -ParameterFilter {
