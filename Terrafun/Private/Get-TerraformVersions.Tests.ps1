@@ -11,15 +11,15 @@ Describe 'Get-TerraformVersions.Unit' -Tag "Unit" {
             } -ParameterFilter {$Format -eq "o"}
 
             Mock Invoke-RestMethod {
-                Get-Content "$PSScriptRoot/Get-TerraformVersions.Tests.MockData.Page1.json" | ConvertFrom-Json -Depth 5
+                Get-Content "$PSScriptRoot/Get-TerraformVersions.Tests.MockData.Page1.json" | ConvertFrom-Json
             }  -ParameterFilter {
-                $Uri -eq "https://api.releases.hashicorp.com/v1/releases/terraform?limit=20&after=2022-01-01T00:00:00.0000000Z"
+                $Uri -eq "https://api.releases.hashicorp.com/v1/releases/terraform?limit=20"
             }
 
             Mock Invoke-RestMethod {
-                Get-Content "$PSScriptRoot/Get-TerraformVersions.Tests.MockData.Page2.json" | ConvertFrom-Json -Depth 5
+                Get-Content "$PSScriptRoot/Get-TerraformVersions.Tests.MockData.Page2.json" | ConvertFrom-Json
             } -ParameterFilter {
-                $Uri -eq "https://api.releases.hashicorp.com/v1/releases/terraform?limit=20&after=2022-04-20T13:46:15.0000000Z"
+                $Uri -eq "https://api.releases.hashicorp.com/v1/releases/terraform?limit=20&after=2022-04-20T13:46:15Z"
             }
 
         }
